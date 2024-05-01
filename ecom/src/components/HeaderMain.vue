@@ -1,6 +1,6 @@
 <script setup>
-    import LoginBtn from '@/icons/LoginBtn.vue';
-    import SignUpbtn from '@/icons/SignUpbtn.vue';
+    // import LoginBtn from '@/icons/LoginBtnSystem.vue';
+    // import SignUpbtn from '@/icons/SignUpbtnSystem.vue';
     import DailyFarmlogo from '@/icons/DailyFarmlogo.vue';
 </script>
 <template>
@@ -15,10 +15,12 @@
                     </div>
                     <div class="option-btns flex flex-row-reverse gap-x-2 p-2 px-4 ">
                         <div class="sign-up-btn">
-                            <SignUpbtn />
+                            <router-link :to="{name:'create'}"><button v-show="createBtn" class="btn-header hover:translate-y-1 duration-200">Sign-Up</button></router-link>
                          </div>
                          <div class="login-btn">
-                            <LoginBtn />
+                            <div>
+                                <router-link  :to="{name:'login'}"><button v-show="loginBtn" class="btn-header bg-slate-500 hover:translate-y-1 duration-200">Login</button></router-link>
+                            </div>
                          </div>
                     </div>
                 </div>
@@ -26,6 +28,25 @@
         </header>
     </div>
 </template>
+
+<script>
+    export default {
+        
+        props: {
+            createBtnDisable: Boolean,
+            loginBtnDisable: Boolean
+        },
+        data() {
+            return {
+                createBtn: this.createBtnDisable,
+                loginBtn: this.loginBtnDisable,
+            }
+        },
+        methods: {
+
+        },
+    }
+</script>
 
 <style scoped>
     .btn-header {

@@ -1,4 +1,8 @@
+<script setup>
+    import HeaderMain from '@/components/HeaderMain.vue';
+</script>
 <template>
+    <HeaderMain :createBtnDisable='false' :loginBtnDisable='true'/>
     <div class="signup-wrapper flex sm:h-screen items-center justify-center">
         <div class="container-wrapper m-1 grid place-content-center p-2">
             <div class="card sm:flex sm:grid-cols-2 grid grid-rows-2 rounded-lg shadow-lg shadow-neutral-500">
@@ -27,6 +31,9 @@
                                     </div>
                                     <div class="email-field">
                                         <input v-model="emaiL" type="email" placeholder="EMAIL" class="input-field w-full placeholder:ps-2">
+                                    </div>
+                                    <div class="address-field">
+                                        <input type="text" name="" id="" placeholder="Address" class="input-field placeholder:ps-2">
                                     </div>
                                 </div>
                                 <div class="form-container">
