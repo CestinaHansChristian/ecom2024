@@ -17,11 +17,14 @@
                         <div class="sign-up-btn">
                             <router-link :to="{name:'create'}"><button v-show="createBtn" class="btn-header hover:translate-y-1 duration-200">Sign-Up</button></router-link>
                          </div>
-                         <div class="login-btn">
+                        <div class="login-btn">
                             <div>
                                 <router-link  :to="{name:'login'}"><button v-show="loginBtn" class="btn-header bg-slate-500 hover:translate-y-1 duration-200">Login</button></router-link>
                             </div>
-                         </div>
+                        </div>
+                        <div class="logout-btn">
+                            <router-link :to="{name: 'home'}"><button v-show="LogoutBtnDisable" class="btn-header bg-red-500 hover:translate-y-1 duration-200">Logout</button></router-link>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -34,7 +37,8 @@
         
         props: {
             createBtnDisable: Boolean,
-            loginBtnDisable: Boolean
+            loginBtnDisable: Boolean,
+            LogoutBtnDisable: Boolean
         },
         data() {
             return {

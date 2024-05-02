@@ -2,7 +2,7 @@
     import HeaderMain from '@/components/HeaderMain.vue';
 </script>
 <template>
-    <HeaderMain :loginBtnDisable="false" :createBtnDisable='true'/>
+    <HeaderMain :loginBtnDisable="false" :createBtnDisable='true' :LogoutBtnDisable="false" />
     <div class="signup-wrapper flex sm:h-screen items-center justify-center">
         <div class="container-wrapper m-1 grid place-content-center p-2">
             <div class="card sm:flex sm:grid-cols-2 grid grid-rows-2 rounded-lg shadow-lg shadow-neutral-500">
