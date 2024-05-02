@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div class="items mx-2 grid grid-cols-3 justify-between h-16 shadow-sm shadow-neutral-600" >
+    <div class="">
+        <div class="relative items mx-2 grid grid-cols-3 justify-between h-16 shadow-sm shadow-neutral-600" >
             <div class="product-image mx-1">
                 <img src="" alt="" class="h-14 w-14">
             </div>

@@ -30,7 +30,7 @@
                                     <p class="price-container">
                                         Price:
                                     </p>
-                                    <span>{{ prod_card_details.prod_price }}</span>
+                                    ₱ <span>{{ prod_card_details.prod_price }}</span>
                                 </div>
                                 <div class="card-controller p-3">
                                     <div class="buttons f">
