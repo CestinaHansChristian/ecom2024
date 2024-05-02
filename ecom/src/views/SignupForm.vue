@@ -8,7 +8,7 @@
             <div class="card sm:flex sm:grid-cols-2 grid grid-col-2 rounded-lg shadow-lg shadow-neutral-500">
                 <div class="">
                     <div class="img-container ">
-                        <img :src="cow" alt="" srcset="" class="cow-img rounded-t-xl shrink h-80 sm:max-h-max w-full object-cover sm:rounded-tr-none sm:rounded-s-lg sm:h-72 sm:w-72">
+                        <img :src="cow" alt="" srcset="" class="cow-img rounded-t-xl  w-full object-full sm:rounded-tr-none sm:rounded-s-lg sm:h-72 sm:w-72">
                     </div>
                 </div>
                 <div class="bg-lime-500 h-auto rounded-b-md sm:rounded-br-lg sm:rounded-tr-lg sm:rounded-bl-none delay-500 duration-200 transition ease-in-out sm:bg-lime-600">
@@ -20,20 +20,24 @@
                                         <h1 class="font-semibold text-center">
                                             Create Account
                                         </h1>
+                                        <h1 v-show="isAccountCreated" class="text-center text-white font-thin">Account Created</h1>
                                         <h1 v-if="isValid" class="text-white font-bold">Password is Strong.</h1>
                                         <h1 v-else class="text-red-800 font-mono">Password must be more than 5</h1>
                                     </div>
                                     <div class="username-field">
-                                        <input v-model="usernamE" type="text" placeholder="USERNAME" class="input-field w-full placeholder:ps-2">
+                                        <input v-model="usernamE" type="text" placeholder="Username" class="input-field w-full ps-2">
                                     </div>
                                     <div class="password-field">
-                                        <input v-model="passworD" type="password" placeholder="PASSWORD" class="input-field w-full placeholder:ps-2">
+                                        <input v-model="passworD" type="password" placeholder="Password" class="input-field w-full ps-2">
                                     </div>
                                     <div class="email-field">
-                                        <input v-model="emaiL" type="email" placeholder="EMAIL" class="input-field w-full placeholder:ps-2">
+                                        <input v-model="emaiL" type="email" placeholder="Email" class="input-field w-full ps-2">
                                     </div>
                                     <div class="address-field">
-                                        <input type="text" name="" id="" placeholder="Address" class="input-field placeholder:ps-2">
+                                        <input v-model="addresS" type="text" placeholder="Address" class="input-field ps-2">
+                                    </div>
+                                    <div class="address-field">
+                                        <input v-model="phone_nuM" type="number" placeholder="Phone Number" class="input-field ps-2">
                                     </div>
                                 </div>
                                 <div class="form-container">
@@ -51,6 +55,9 @@
 
 <script>
 import CreateBtn from '@/icons/CreateBtn.vue'
+
+    import PocketBase from 'pocketbase'
+    const pb = new PocketBase('http://127.0.0.1:8090/')
     export default {
         components: {
             CreateBtn
@@ -61,17 +68,36 @@ import CreateBtn from '@/icons/CreateBtn.vue'
                 usernamE: '',
                 passworD: '',
                 emaiL: '',
-                isValid: false
+                addresS: '',
+                phone_nuM: '',
+                isValid: false,
+                isAccountCreated: false
             }
         },
         methods: {
-            display() {
+            async display() {
                 const userPayload = {
                     'username': this.usernamE,
-                    'pasword': this.passworD,
-                    'email': this.emaiL
+                    'password': this.passworD,
+                    'email': this.emaiL,
+                    'address': this.addresS,
+                    'phone_num': this.phone_nuM,
+                    'passwordConfirm': this.passworD
                 }
-                console.log(userPayload);
+
+                try {
+                        if(await pb.collection('users').create(userPayload)) {
+                        this.isAccountCreated = !this.isAccountCreated
+                        this.usernamE = '',
+                        this.emaiL = '',
+                        this.passworD = '',
+                        this.addresS = '',
+                        this.phone_nuM = ''
+                    }
+                } catch (error) {
+                    confirm('Email already in use', error)
+                }
+                
             }
         },
         watch: {
@@ -93,5 +119,9 @@ img {
 
 .input-field {
     border-radius: 6px;
+}
+
+.cow-img {
+    height: 350px;
 }
 </style>

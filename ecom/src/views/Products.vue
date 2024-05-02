@@ -2,6 +2,7 @@
     import ProductCard from '@/components/ProductCard.vue';
     import Cart from '@/components/Cart.vue';
     import HeaderMain from '@/components/HeaderMain.vue';
+    
 </script>
 <template>
     <HeaderMain :LogoutBtnDisable="true"/>
@@ -55,33 +56,12 @@
 </template>
 
 <script>
-    export default {
-       data() {
-            return {
-                cow: '../../public/cowCTAbg.jpg',
-                product_list: [
-                    {
-                        id: 1, prod_name: "Cheese", prod_desc: "Freshly made cheese", prod_price: 200
-                    },
-                    {
-                        id: 2, prod_name: "Fresh Milk", prod_desc: "Fresh Milk today", prod_price: 40
-                    },
-                    {
-                        id: 3, prod_name: "Cow Meat", prod_desc: "Fresh Cow Meat", prod_price: 430
-                    },
-                    {
-                        id: 4, prod_name: "Goat Milk", prod_desc: "Fresh Cow Milk", prod_price: 887
-                    },
-                    {
-                        id: 5, prod_name: "Container Small", prod_desc: "5 liters Container", prod_price: 23
-                    },
-                    {
-                        id: 6, prod_name: "Container Big", prod_desc: "500mg Container", prod_price: 999
-                    },
-                ]
-            }
-       },
-    }
+    
+    import PocketBase from 'pocketbase';
+
+    const pb = new PocketBase('http://127.0.0.1:8090');
+
+    const product_list = await pb.collection('products').getFullList()
 </script>
 
 <style scoped>

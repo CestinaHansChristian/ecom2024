@@ -23,7 +23,9 @@
                             </div>
                         </div>
                         <div class="logout-btn">
-                            <router-link :to="{name: 'home'}"><button v-show="LogoutBtnDisable" class="btn-header bg-red-500 hover:translate-y-1 duration-200">Logout</button></router-link>
+                            <router-link :to="{name: 'home'}">
+                                <button @click="logoutBtn" v-show="LogoutBtnDisable" class="btn-header bg-red-500 hover:translate-y-1 duration-200">Logout</button>
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -33,6 +35,9 @@
 </template>
 
 <script>
+    import PocketBase from 'pocketbase';
+
+const pb = new PocketBase('http://127.0.0.1:8090');
     export default {
         
         props: {
@@ -47,7 +52,12 @@
             }
         },
         methods: {
-
+            logoutBtn() {
+                if(pb.authStore.clear())
+                console.log('logged out');
+                else
+                console.log("falied");
+            }
         },
     }
 </script>

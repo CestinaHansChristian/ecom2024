@@ -22,10 +22,10 @@
                                         </h1>
                                     </div>
                                     <div class="username-field">
-                                        <input v-model="usernamE" type="text" placeholder="USERNAME" class="input-field w-full placeholder:ps-2">
+                                        <input v-model="usernamE" type="text" placeholder="Username / Email" class="input-field w-full ps-2">
                                     </div>
                                     <div class="password-field">
-                                        <input v-model="passworD" type="password" placeholder="PASSWORD" class="input-field w-full placeholder:ps-2">
+                                        <input v-model="passworD" type="password" placeholder="Password" class="input-field w-full ps-2">
                                     </div>
                                 </div>
                                 <div class="form-container">
@@ -44,6 +44,9 @@
     </div>
 </template>
 <script>
+    import PocketBase from 'pocketbase';
+
+    const pb = new PocketBase('http://127.0.0.1:8090');
     export default {
         data() {
             return {
@@ -55,8 +58,10 @@
             }
         },
         methods: {
-            loginUserCred() {
-                console.log("hello");
+            async loginUserCred() {
+                await pb.collection('users').authWithPassword(this.usernamE,this.passworD)
+                console.log(pb.authStore.token);
+                this.$router.push('/products')
             }
         },
         computed: {

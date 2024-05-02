@@ -1,5 +1,6 @@
 <script setup>
     import HeaderMain from '@/components/HeaderMain.vue';
+    import ProductCard from '@/components/ProductCard.vue';
 </script>
 <template>
     <HeaderMain :loginBtnDisable="true" :createBtnDisable="true" :LogoutBtnDisable="false"/>
@@ -53,6 +54,9 @@
                         <iframe src="https://www.google.com/maps/embed/v1/place?q=Malilipot,+Albay,+Philippines&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8" class="aspect-auto w-full h-full rounded-b-lg" frameborder="0"></iframe>
                     </div>
                 </div>
+            </div>
+            <div class="products-">
+                <ProductCard />
             </div>
         </div>
     </div>
