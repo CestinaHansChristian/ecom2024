@@ -9,7 +9,7 @@
                             Item {{ index }}
                             <!-- {{ prod_card_details.collectionId + '/'+ prod_card_details.id + '/' + prod_card_details.product_img }} -->
                             <div class="card-image">
-                                <img :src="'http://127.0.0.1:8090/api/files/'+prod_card_details.collectionId + '/'+ prod_card_details.id + '/' + prod_card_details.product_img" alt="" class="h-52 w-full rounded-t-lg">
+                                <img :src="'http://127.0.0.1:8090/api/files/'+prod_card_details.collectionId + '/'+ prod_card_details.id + '/' + prod_card_details.product_img" alt="" class="h-52 w-full rounded-t-lg img-prod-prev">
                             </div>
                             <div class="controller bg-slate-400 grid grid-row-4 rounded-b-lg">
                                 <div class="product-heading p-3">
@@ -51,15 +51,6 @@
 </template>
 
 <script>
-    import PocketBase from 'pocketbase';
-
-    const pb = new PocketBase('http://127.0.0.1:8090');
-
-
-    // const fileName = productGet.documents[0]
-    // console.log(productProp);
-
-// const url = pb.files.getUrl(productGet.product_img,fileName)
 
     export default {
         props: {
@@ -78,3 +69,9 @@
         },
     }
 </script>
+
+<style>
+    .img-prod-prev {
+        -webkit-user-drag: none
+    }
+</style>
