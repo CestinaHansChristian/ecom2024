@@ -5,14 +5,14 @@
     <HeaderMain :createBtnDisable='false' :loginBtnDisable='true'/>
     <div class="signup-wrapper flex sm:h-screen items-center justify-center">
         <div class="container-wrapper m-1 grid place-content-center p-2">
-            <div class="card sm:flex sm:grid-cols-2 grid grid-rows-2 rounded-lg shadow-lg shadow-neutral-500">
+            <div class="card sm:flex sm:grid-cols-2 grid grid-col-2 rounded-lg shadow-lg shadow-neutral-500">
                 <div class="">
                     <div class="img-container ">
-                        <img :src="cow" alt="" srcset="" class="cow-img rounded-t-xl shrink h-72 sm:max-h-max w-full object-cover sm:rounded-tr-none sm:rounded-s-lg sm:h-72 sm:w-72">
+                        <img :src="cow" alt="" srcset="" class="cow-img rounded-t-xl shrink h-80 sm:max-h-max w-full object-cover sm:rounded-tr-none sm:rounded-s-lg sm:h-72 sm:w-72">
                     </div>
                 </div>
                 <div class="bg-lime-500 h-auto rounded-b-md sm:rounded-br-lg sm:rounded-tr-lg sm:rounded-bl-none delay-500 duration-200 transition ease-in-out sm:bg-lime-600">
-                    <div class="form-container flex justify-center m-2 px-2 pt-10">
+                    <div class="form-container flex justify-center m-2 px-2 py-5">
                         <form action="" @submit.prevent="display">
                             <div class="form-wrapper space-y-3 px-4">
                                 <div class="form-field space-y-3 grid justify-items-center text-wrap">
