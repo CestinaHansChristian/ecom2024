@@ -9,7 +9,7 @@
                             Item {{ index }}
                             <!-- {{ prod_card_details.collectionId + '/'+ prod_card_details.id + '/' + prod_card_details.product_img }} -->
                             <div class="card-image">
-                                <img :src="'http://127.0.0.1:8090/api/files/'+prod_card_details.collectionId + '/'+ prod_card_details.id + '/' + prod_card_details.product_img" alt="" class="h-52 w-full rounded-t-lg img-prod-prev">
+                                <img :src="fileUrl +prod_card_details.collectionId + '/'+ prod_card_details.id + '/' + prod_card_details.product_img" alt="" class="h-52 w-full rounded-t-lg img-prod-prev">
                             </div>
                             <div class="controller bg-slate-400 grid grid-row-4 rounded-b-lg">
                                 <div class="product-heading p-3">
@@ -37,7 +37,7 @@
                                 <div class="card-controller p-3">
                                     <div class="buttons f">
                                         <div class="add-to-car">
-                                            <button @click="addToCart(prod_card_details.product_price)" class="bg-black text-white p-2 rounded-md hover:-translate-y-1 duration-200">Add to Cart</button>
+                                            <button @click="addToCart(index,parseInt(prod_card_details.product_price))" class="bg-black text-white p-2 rounded-md hover:-translate-y-1 duration-200">Add to Cart</button>
                                         </div>
                                     </div>
                                 </div>
@@ -52,19 +52,36 @@
 
 <script>
 
+let prodCardPrice = 0
     export default {
         props: {
             productProp: Array
         },
         data() {
             return {
-                cow: 'http://127.0.0.1:8090/api/files/136m0uq5sta9cyo/pyb9xr0qbcoeejj/nyx_ixs3Kshd75.jpg',
+                // cow: 'http://127.0.0.1:8090/api/files/136m0uq5sta9cyo/pyb9xr0qbcoeejj/nyx_ixs3Kshd75.jpg',
                 productGet: this.productProp,
+                fileUrl: 'http://127.0.0.1:8090/api/files/',
+                ordered_prod_card: [],
             }
         },
         methods: {
-            addToCart(id) {
-                console.log(id);
+            addToCart(index,prod_price) {
+                parseInt(prodCardPrice)
+                parseInt(prod_price)
+                prodCardPrice += prod_price
+
+                const ordered_product = {
+                    'prod_img': this.fileUrl + this.productGet[index].collectionId + '/'+ this.productGet[index].id + '/' + this.productGet[index].product_img,
+                    'prod_name': this.productGet[index].product_name,
+                    'prod_price': this.productGet[index].product_price,
+                    'prod_index': index
+                }
+
+                console.log('prodCard',prodCardPrice);
+                // this.ordered_prod_card.push(ordered_product)
+                // console.log('product card',this.ordered_prod_card);
+                this.$emit('product_order',this.ordered_prod_card)
             }
         },
     }
