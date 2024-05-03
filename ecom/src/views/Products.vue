@@ -65,7 +65,7 @@
         methods: {
             pass_to_cart(id) {
                 this.order_id = id
-                // console.log('products',id);
+                console.log('products',id);
             }
         },
         data() {

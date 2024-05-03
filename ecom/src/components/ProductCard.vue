@@ -1,7 +1,6 @@
 <template>
     <div>
         <div class="product-card-container">
-            
             <div class="grid grid-cols-3">
                 <div class="scrollbar" v-for="(prod_card_details, index) in productGet" :key="prod_card_details.index" >
                     <div class="card-container m-2 flex grid-cols-2 rounded-md">
@@ -53,6 +52,7 @@
 <script>
 
 let prodCardPrice = 0
+let clickCount = 1
     export default {
         props: {
             productProp: Array
@@ -69,19 +69,23 @@ let prodCardPrice = 0
             addToCart(index,prod_price) {
                 parseInt(prodCardPrice)
                 parseInt(prod_price)
+                parseInt(clickCount)
                 prodCardPrice += prod_price
 
                 const ordered_product = {
                     'prod_img': this.fileUrl + this.productGet[index].collectionId + '/'+ this.productGet[index].id + '/' + this.productGet[index].product_img,
                     'prod_name': this.productGet[index].product_name,
                     'prod_price': this.productGet[index].product_price,
-                    'prod_index': index
+                    'prod_grand_total': prodCardPrice,
+                    'prod_click_count': clickCount
                 }
 
-                console.log('prodCard',prodCardPrice);
-                // this.ordered_prod_card.push(ordered_product)
+                // console.log('prodCard',prodCardPrice);
+                this.ordered_prod_card.push(ordered_product)
+                // console.log('click count',clickCount);
                 // console.log('product card',this.ordered_prod_card);
                 this.$emit('product_order',this.ordered_prod_card)
+                clickCount++
             }
         },
     }

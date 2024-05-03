@@ -1,4 +1,6 @@
-
+<script setup>
+    let count = 0
+</script>
 <template>
     <div class="loop-container grid">
         {{ display_order.prod_price }}
@@ -20,13 +22,18 @@
             </div>
             <div class="flex sticky bottom-0 h-14 justify-between bg-zinc-200 mx-2 p-1 rounded-b-lg">
                 <p>
-                    Total:
+                    Total: 
                 </p>
                 <span class="total-contain flex p-1 rounded-lg bg-neutral-300 font-semibold">
-                    <p class="grid" v-for="(item, index) in display_order" :key="item.index">
+                    <p class="grid">
+                        <p>
+                            
+                        </p>
                         <!-- {{ item.prod_price ? total_order_prices(display_order.prod_price,item.index) : 'No order/s' }} -->
                         <!-- {{ item.prod_price }} -->
+                        
                     </p>
+                    
                 </span>
                 <button type="button" class="bg-green-500 p-1 rounded-lg font-semibold border-2 border-green-700 hover:bg-sky-400 duration-300 delay-150">CheckOut</button>
             </div>
@@ -37,8 +44,6 @@
 </template>
 
 <script>
-    let index = 0
-    let items_price = 0
     export default {
         props: {
             display_order: Array
@@ -46,19 +51,6 @@
         data() {
             return {
                 final_price: [],
-                cart_index_loc: this.display_order.prod_index,
-                // added_items: [
-                //     {
-                //     'cart_prod_name': this.display_order.prod_name,
-                //     },
-                //     {
-                //         'cart_prod_img': this.display_order.prod_img,
-                //     },
-                //     {
-                //         'cart_prod_price': this.display_order.prod_price
-                //     }
-                // ],
-                total_items: 0
             }
         },
         methods: {
@@ -85,10 +77,7 @@
         },
         computed: {
             grand_total() {
-                display_order.forEach(element => {
-                    this.total_items += element
-                });
-                return this.total_items
+                return this.display_order
             }
         },
     }
