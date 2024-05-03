@@ -1,11 +1,11 @@
 <script setup>
-    import ProductCard from '@/components/ProductCard.vue';
-    import Cart from '@/components/Cart.vue';
-    import HeaderMain from '@/components/HeaderMain.vue';
-    
+import ProductCard from '@/components/ProductCard.vue';
+import Cart from '@/components/Cart.vue';
+import HeaderMain from '@/components/HeaderMain.vue';
+
 </script>
 <template>
-    <HeaderMain :LogoutBtnDisable="true"/>
+    <HeaderMain :LogoutBtnDisable="true" />
     <div class="h-screen">
         <div class="wrapper">
             <div class="product-container">
@@ -13,7 +13,7 @@
                     <div class="content-wrapper grid grid-cols-4 m-2">
                         <div class="product-container-wrapper col-span-3">
                             <div class="product-card-container overflow-auto rounded-lg">
-                                <div class="flex card-container shadow-md shadow-lime-700 rounded-lg m-2" >
+                                <div class="flex card-container shadow-md shadow-lime-700 rounded-lg m-2">
                                     <ProductCard @product_order="pass_to_cart" :productProp="product_list" />
                                 </div>
                             </div>
@@ -23,7 +23,8 @@
                                 <div class="grid cart-container">
                                     <div class="grid grid-rows-1 shopping-cart-list bg-slate-300">
                                         <h2 class="text-center bg-slate-100 m-1">Cart Items</h2>
-                                        <div class="shopping-list grid mx-2 overflow-y-scroll h-60 space-y-2 m-2 shadow-md shadow-zinc-600 rounded-t-lg">
+                                        <div
+                                            class="shopping-list grid mx-2 overflow-y-scroll h-60 space-y-2 m-2 shadow-md shadow-zinc-600 rounded-t-lg">
                                             <Cart :display_order="order_id" />
                                         </div>
                                         <!-- <div class="flex sticky bottom-0 justify-between bg-zinc-500 mx-2 p-1 rounded-b-lg">
@@ -53,31 +54,38 @@
 </template>
 
 <script>
-    
-    import PocketBase from 'pocketbase';
 
-    const pb = new PocketBase('http://127.0.0.1:8090');
+import { pb } from '../../lib/pocketbase';
 
-    const product_list = await pb.collection('products').getFullList()
+const product_list = await pb.collection('products').getFullList()
 
-    export default {
-        emits: ['product_order'],
-        methods: {
-            pass_to_cart(id) {
-                this.order_id = id
-                console.log('products',id);
-            }
+export default {
+    emits: ['product_order'],
+    mounted() {
+        this.getAuth()
+    },
+    methods: {
+        pass_to_cart(id) {
+            this.order_id = id
+            console.log('products', id);
         },
-        data() {
-            return {
-                order_id: []
+        async getAuth() {
+            const auth = pb.authStore.isValid
+            if (!auth) {
+                this.$router.push({ name: 'login' })
             }
-        },
-    }
+        }
+    },
+    data() {
+        return {
+            order_id: []
+        }
+    },
+}
 </script>
 
 <style scoped>
-    .product-card-container {
-        height: 580px
-    }
+.product-card-container {
+    height: 580px
+}
 </style>

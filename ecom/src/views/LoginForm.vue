@@ -1,5 +1,5 @@
 <script setup>
-    import HeaderMain from '@/components/HeaderMain.vue';
+import HeaderMain from '@/components/HeaderMain.vue';
 </script>
 <template>
     <HeaderMain :loginBtnDisable="false" :createBtnDisable='true' :LogoutBtnDisable="false" />
@@ -8,10 +8,12 @@
             <div class="card sm:flex sm:grid-cols-2 grid grid-rows-2 rounded-lg shadow-lg shadow-neutral-500">
                 <div class="">
                     <div class="img-container ">
-                        <img :src="cow" alt="" srcset="" class="cow-img rounded-t-xl shrink h-72 sm:max-h-max w-full object-cover sm:rounded-tr-none sm:rounded-s-lg sm:h-72 sm:w-72">
+                        <img :src="cow" alt="" srcset=""
+                            class="cow-img rounded-t-xl shrink h-72 sm:max-h-max w-full object-cover sm:rounded-tr-none sm:rounded-s-lg sm:h-72 sm:w-72">
                     </div>
                 </div>
-                <div class="bg-lime-500 h-auto rounded-b-md sm:rounded-br-lg sm:rounded-tr-lg sm:rounded-bl-none delay-500 duration-200 transition ease-in-out sm:bg-lime-600">
+                <div
+                    class="bg-lime-500 h-auto rounded-b-md sm:rounded-br-lg sm:rounded-tr-lg sm:rounded-bl-none delay-500 duration-200 transition ease-in-out sm:bg-lime-600">
                     <div class="form-container flex justify-center m-2 px-2 pt-10">
                         <form action="" @submit.prevent="loginUserCred">
                             <div class="form-wrapper space-y-3 px-4">
@@ -22,17 +24,20 @@
                                         </h1>
                                     </div>
                                     <div class="username-field">
-                                        <input v-model="usernamE" type="text" placeholder="Username / Email" class="input-field w-full ps-2">
+                                        <input v-model="usernamE" type="text" placeholder="Username / Email"
+                                            class="input-field w-full ps-2">
                                     </div>
                                     <div class="password-field">
-                                        <input v-model="passworD" type="password" placeholder="Password" class="input-field w-full ps-2">
+                                        <input v-model="passworD" type="password" placeholder="Password"
+                                            class="input-field w-full ps-2">
                                     </div>
                                 </div>
                                 <div class="form-container">
                                     <div class="flex place-content-center">
-                                        <router-link :to="{name: 'products'}" class="w-full">
-                                            <button class="bg-neutral-300 btn-font w-full  rounded-lg font-semibold hover:bg-slate-400 hover:-translate-y-px delay-150 duration-200">Login</button>
-                                        </router-link>
+                                        <!-- <router-link :to="{ name: 'products' }" class="w-full"> -->
+                                            <button
+                                                class="bg-neutral-300 btn-font w-full  rounded-lg font-semibold hover:bg-slate-400 hover:-translate-y-px delay-150 duration-200">Login</button>
+                                        <!-- </router-link> -->
                                     </div>
                                 </div>
                             </div>
@@ -44,30 +49,30 @@
     </div>
 </template>
 <script>
-    import PocketBase from 'pocketbase';
-
-    const pb = new PocketBase('http://127.0.0.1:8090');
-    export default {
-        data() {
-            return {
-                cow: '../../public/cowCTAbg.jpg',
-                usernamE: '',
-                passworD: '',
-                emaiL: '',
-                isValid: false
-            }
-        },
-        methods: {
-            async loginUserCred() {
-                await pb.collection('users').authWithPassword(this.usernamE,this.passworD)
-                console.log(pb.authStore.token);
+import { pb } from '../../lib/pocketbase';
+export default {
+    data() {
+        return {
+            cow: '../../public/cowCTAbg.jpg',
+            usernamE: '',
+            passworD: '',
+            emaiL: '',
+            isValid: false
+        }
+    },
+    methods: {
+        async loginUserCred() {
+            const login = await pb.collection('users').authWithPassword(this.usernamE, this.passworD)
+            console.log(pb.authStore.token);
+            if (login) {
                 this.$router.push('/products')
             }
-        },
-        computed: {
-            
-        },
-    }
+        }
+    },
+    computed: {
+
+    },
+}
 </script>
 
 <style scoped>
