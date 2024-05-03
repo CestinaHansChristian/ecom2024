@@ -1,9 +1,9 @@
 // vue router instance
-import { createRouter,createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
 // pocketbase instance
 import PocketBase from 'pocketbase'
-const pb = new PocketBase('http://127.0.0.1:8090');
+const pb = new PocketBase('https://ecommerce.forkbun.evansolanoy.studio');
 
 // view import
 import SignupForm from '@/views/SignupForm.vue';
@@ -24,7 +24,7 @@ const router = createRouter({
             name: 'create',
             component: SignupForm,
             children: [
-                
+
             ]
         },
         {
