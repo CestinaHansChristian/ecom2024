@@ -2,10 +2,10 @@
     let count = 0
 </script>
 <template>
-    <div class="loop-container grid">
+    <div class="loop-container grid grid-row-3 relative">
         {{ display_order.prod_price }}
-        <div class="grid py-1 my-1">
-            <div v-for="(product_cart_item, index) in display_order" :key="product_cart_item.index" class=" flex relative items mx-2  justify-between shadow-sm shadow-neutral-600 p-1 rounded-md">
+        <div class="grid grid-rows-2 py-2 pb-10">
+            <div v-for="(product_cart_item, index) in display_order" :key="product_cart_item.index" class=" flex relative items mx-2 py-4 justify-between shadow-sm shadow-neutral-600 p-1 rounded-md">
                 <div class="product-image mx-1">
                     <img :src='product_cart_item.prod_img' alt="" class="h-14 w-24">
                 </div>
@@ -16,31 +16,34 @@
                     </p>
                 </div>
                 <div class="item-controller grid grid-cols-2 place-content-center gap-x-1 me-2">
-                    <!-- <button class="bg-neutral-400 p-2 rounded-lg hover:bg-zinc-500">+</button>
-                    <button class="bg-neutral-400 p-2 rounded-lg hover:bg-zinc-500">-</button> -->
                 </div>
             </div>
-            <div class="flex sticky bottom-0 h-14 justify-between bg-zinc-200 mx-2 p-1 rounded-b-lg">
-                <p>
-                    Total: 
-                </p>
-                <span class="total-contain flex p-1 rounded-lg bg-neutral-300 font-semibold">
-                    <p class="grid">
-                        <p>
-                            
-                        </p>
-                        <!-- {{ item.prod_price ? total_order_prices(display_order.prod_price,item.index) : 'No order/s' }} -->
-                        <!-- {{ item.prod_price }} -->
-                        
-                    </p>
-                    
-                </span>
-                <button type="button" class="bg-green-500 p-1 rounded-lg font-semibold border-2 border-green-700 hover:bg-sky-400 duration-300 delay-150">CheckOut</button>
+        </div>
+        <div class="sticky grid bottom-0  align-bottom">
+            <div class="controller-wrapper grid-flow-col controller bottom-0 absolute w-full">
+                <div class=" bg-slate-400 place-items-stretch grid rounded-md">
+                    <div class="grid grid-cols-2 justify-between space-x-3 m-0.5">
+                        <div class="total-wrapper py-1 ps-1">
+                            <textarea disabled class="text-area bg-white h-6 w-36 placeholder:ps-1 rounded-md" placeholder="Price"></textarea>
+                        </div>
+                        <div class="checkout-wrapper">
+                            <button class="bg-green-500 p-0.5 w-full rounded-lg font-semibold border-2 border-green-700 hover:bg-sky-400 duration-300 delay-150">CheckOut</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        
+        <!-- <div class="flex sticky bottom-0 h-14 justify-between bg-zinc-200 mx-2 p-1 rounded-b-lg">
+            <p>
+                Total: 
+            </p>
+            <span class="total-contain flex p-1 rounded-lg bg-neutral-300 font-semibold">
+                
+                
+            </span>
+            <button type="button" class="bg-green-500 p-1 rounded-lg font-semibold border-2 border-green-700 hover:bg-sky-400 duration-300 delay-150">CheckOut</button>
+        </div> -->
     </div>
-    
 </template>
 
 <script>
@@ -83,3 +86,8 @@
     }
 </script>
 
+<style>
+.text-area {
+    resize: none
+}
+</style>

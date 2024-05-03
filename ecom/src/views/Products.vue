@@ -18,12 +18,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="cart-list grid grid-row-2 gap-y-2 border-2 border-blue-700 mx-1">
+                        <div class="cart-list grid grid-row-1 gap-y-2 border-2 border-blue-700 mx-1">
                             <div class="grid1">
                                 <div class="grid cart-container">
-                                    <div class="grid shopping-cart-list bg-slate-300">
+                                    <div class="grid grid-rows-1 shopping-cart-list bg-slate-300">
                                         <h2 class="text-center bg-slate-100 m-1">Cart Items</h2>
-                                        <div class="shopping-list grid mx-2 overflow-y-scroll h-60 space-y-2 py-4 m-2 shadow-md shadow-zinc-600 rounded-t-lg">
+                                        <div class="shopping-list grid mx-2 overflow-y-scroll h-60 space-y-2 m-2 shadow-md shadow-zinc-600 rounded-t-lg">
                                             <Cart :display_order="order_id" />
                                         </div>
                                         <!-- <div class="flex sticky bottom-0 justify-between bg-zinc-500 mx-2 p-1 rounded-b-lg">
