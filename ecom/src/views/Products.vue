@@ -24,18 +24,8 @@
                                     <div class="grid grid-rows-1 shopping-cart-list bg-slate-300">
                                         <h2 class="text-center bg-slate-100 m-1">Cart Items</h2>
                                         <div class="shopping-list grid mx-2 overflow-y-scroll h-60 space-y-2 m-2 shadow-md shadow-zinc-600 rounded-t-lg">
-                                            <Cart :display_order="order_id" />
+                                            <Cart :display_order="order_price" :order_desc="order_desc" />
                                         </div>
-                                        <!-- <div class="flex sticky bottom-0 justify-between bg-zinc-500 mx-2 p-1 rounded-b-lg">
-                                            <div class="total-price">
-                                                <p class="total-contain p-1 rounded-lg bg-neutral-300 font-semibold">
-                                                    Total: <input type="number" value="display_order.prod_price" class="w-20 bg-slate-100 rounded-md" disabled >
-                                                </p>
-                                            </div>
-                                            <div class="checkout-btn grid place-content-center me-2">
-                                                <button type="button" class="bg-green-500 p-1 rounded-lg font-semibold border-2 border-green-700 hover:bg-sky-400 duration-300 delay-150">CheckOut</button>
-                                            </div>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -60,17 +50,21 @@
 
     const product_list = await pb.collection('products').getFullList()
 
+    // console.log(product_list);
+
     export default {
         emits: ['product_order'],
         methods: {
             pass_to_cart(id) {
-                this.order_id = id
+                this.order_price = id
+                this.order_desc.push(id)
                 console.log('products',id);
             }
         },
         data() {
             return {
-                order_id: []
+                order_price: [],
+                order_desc: []
             }
         },
     }

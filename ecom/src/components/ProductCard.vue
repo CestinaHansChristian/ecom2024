@@ -5,7 +5,7 @@
                 <div class="scrollbar" v-for="(prod_card_details, index) in productGet" :key="prod_card_details.index" >
                     <div class="card-container m-2 flex grid-cols-2 rounded-md">
                         <div class="grid grid-row-2 ">
-                            Item {{ index }}
+                            <!-- Item {{ index }} -->
                             <!-- {{ prod_card_details.collectionId + '/'+ prod_card_details.id + '/' + prod_card_details.product_img }} -->
                             <div class="card-image">
                                 <img :src="fileUrl +prod_card_details.collectionId + '/'+ prod_card_details.id + '/' + prod_card_details.product_img" alt="" class="h-52 w-full rounded-t-lg img-prod-prev">
@@ -50,9 +50,7 @@
 </template>
 
 <script>
-
-let prodCardPrice = 0
-let clickCount = 1
+let grandTotal = 0
     export default {
         props: {
             productProp: Array
@@ -66,26 +64,19 @@ let clickCount = 1
             }
         },
         methods: {
-            addToCart(index,prod_price) {
-                parseInt(prodCardPrice)
-                parseInt(prod_price)
-                parseInt(clickCount)
-                prodCardPrice += prod_price
-
+            addToCart(index,prod_prices) {
+                parseInt(prod_prices)
+                grandTotal += prod_prices
                 const ordered_product = {
                     'prod_img': this.fileUrl + this.productGet[index].collectionId + '/'+ this.productGet[index].id + '/' + this.productGet[index].product_img,
                     'prod_name': this.productGet[index].product_name,
                     'prod_price': this.productGet[index].product_price,
-                    'prod_grand_total': prodCardPrice,
-                    'prod_click_count': clickCount
+                    'prod_grand_total': grandTotal
                 }
 
                 // console.log('prodCard',prodCardPrice);
-                this.ordered_prod_card.push(ordered_product)
-                // console.log('click count',clickCount);
-                // console.log('product card',this.ordered_prod_card);
-                this.$emit('product_order',this.ordered_prod_card)
-                clickCount++
+                // this.ordered_prod_card.push(ordered_product)
+                this.$emit('product_order',ordered_product)
             }
         },
     }
