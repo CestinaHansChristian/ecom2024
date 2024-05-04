@@ -18,12 +18,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="cart-list grid grid-row-1 gap-y-2 border-2 border-blue-700 mx-1">
+                        <div class="cart-list grid grid-row-1 gap-y-2 mx-1">
                             <div class="grid1">
                                 <div class="grid cart-container">
-                                    <div class="grid grid-rows-1 shopping-cart-list bg-slate-300">
-                                        <h2 class="text-center bg-slate-100 m-1">Cart Items</h2>
-                                        <div class="shopping-list grid mx-2 overflow-y-scroll h-60 space-y-2 m-2 shadow-md shadow-zinc-600 rounded-t-lg">
+                                    <div class="grid grid-rows-1 shopping-cart-list bg-slate-300 rounded-md">
+                                        <h2 class="text-center font-style-format bg-slate-100 m-1">Your Cart</h2>
+                                        <div class="shopping-list grid mx-2 h-60 space-y-2 m-2 shadow-md shadow-zinc-600 rounded-lg pt-1">
                                             <Cart :display_order="order_price" :order_desc="order_desc" />
                                         </div>
                                     </div>
@@ -71,7 +71,29 @@
 </script>
 
 <style scoped>
+    .font-style-format {
+        font-family: 'lumanisomo'
+    }
+
     .product-card-container {
         height: 580px
     }
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey; 
+        border-radius: 10px;
+        background-color: whitesmoke
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: rgb(175, 92, 92);
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: #dd7c7c; 
+      }
 </style>

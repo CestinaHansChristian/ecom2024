@@ -1,7 +1,7 @@
 <script setup>
 </script>
 <template>
-    <div class="loop-container grid grid-row-3 relative">
+    <div class="loop-container grid grid-row-3 relative overflow-y-scroll h-60">
         <div class="grid grid-rows-2 py-2 pb-10">
             <div v-for="(product_cart_item, index) in order_desc" :key="product_cart_item.index" class=" flex relative items mx-2 py-4 justify-between shadow-sm shadow-neutral-600 p-1 rounded-md">
                 <div class="product-image mx-1">
@@ -13,6 +13,7 @@
                     </p>
                 </div>
                 <div class="item-controller grid grid-cols-2 place-content-center gap-x-1 me-2">
+                    <!-- {{ product_cart_item.prod_counter }} -->
                 </div>
             </div>
         </div>
@@ -52,8 +53,10 @@
     }
 </script>
 
-<style>
+<style scoped>
 .text-area {
     resize: none
 }
+
+
 </style>

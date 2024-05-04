@@ -1,14 +1,14 @@
 <template>
     <div>
-        <div class="product-card-container">
+        <div class="product-card-container p-1">
             <div class="grid grid-cols-3">
-                <div class="scrollbar" v-for="(prod_card_details, index) in productGet" :key="prod_card_details.index" >
-                    <div class="card-container m-2 flex grid-cols-2 rounded-md">
+                <div class="scrollbar" v-for="(prod_card_details, index) in productDetails" :key="prod_card_details.index" >
+                    <div class="card-container m-2 flex grid-cols-2 rounded-md shadow-md shadow-amber-600">
                         <div class="grid grid-row-2 ">
-                            <!-- Item {{ index }} -->
+                            Item {{ index }}
                             <!-- {{ prod_card_details.collectionId + '/'+ prod_card_details.id + '/' + prod_card_details.product_img }} -->
                             <div class="card-image">
-                                <img :src="fileUrl +prod_card_details.collectionId + '/'+ prod_card_details.id + '/' + prod_card_details.product_img" alt="" class="h-52 w-full rounded-t-lg img-prod-prev">
+                                <img :src="fileUrl +prod_card_details.collectionId + '/'+ prod_card_details.id + '/' + prod_card_details.product_img" alt="" class="h-52 w-80 rounded-t-lg img-prod-prev">
                             </div>
                             <div class="controller bg-slate-400 grid grid-row-4 rounded-b-lg">
                                 <div class="product-heading p-3">
@@ -33,9 +33,21 @@
                                     </p>
                                     ₱ <span>{{ prod_card_details.product_price }}</span>
                                 </div>
+                                <div class="product-price p-3" >
+                                    <p class="text-orange-800 font-bold" v-if="prod_card_details.product_stocks >= 10">
+                                        On stock
+                                    </p>
+                                    <p class="text-red-900 font-bold" v-else-if="prod_card_details.product_stocks < 10 && prod_card_details.product_stocks >= 0">
+                                        Almost sold out
+                                    </p>
+                                    <h1>
+                                        <!-- {{ prodStocksLeft }} -->
+                                    </h1>
+                                    <span>{{ productDetails[index].product_stock ? 'null' : 'no'}}</span>
+                                </div>
                                 <div class="card-controller p-3">
-                                    <div class="buttons f">
-                                        <div class="add-to-car">
+                                    <div class="buttons-function">
+                                        <div class="add-to-cart">
                                             <button @click="addToCart(index,parseInt(prod_card_details.product_price))" class="bg-black text-white p-2 rounded-md hover:-translate-y-1 duration-200">Add to Cart</button>
                                         </div>
                                     </div>
@@ -51,6 +63,7 @@
 
 <script>
 let grandTotal = 0
+let count = 1
     export default {
         props: {
             productProp: Array
@@ -61,23 +74,34 @@ let grandTotal = 0
                 productGet: this.productProp,
                 fileUrl: 'http://127.0.0.1:8090/api/files/',
                 ordered_prod_card: [],
+                prodStocksLeft: 0,
+                productDetails: this.productProp
             }
         },
         methods: {
             addToCart(index,prod_prices) {
+
+                this.productProp[index].product_stocks = this.productGet[index].product_stocks - 1
                 parseInt(prod_prices)
+                parseInt(count)
                 grandTotal += prod_prices
                 const ordered_product = {
                     'prod_img': this.fileUrl + this.productGet[index].collectionId + '/'+ this.productGet[index].id + '/' + this.productGet[index].product_img,
                     'prod_name': this.productGet[index].product_name,
-                    'prod_price': this.productGet[index].product_price,
-                    'prod_grand_total': grandTotal
+                    'prod_price': this.productGet[index].prod,
+                    'prod_grand_total': grandTotal,
+                    'prod_counter': count
                 }
 
                 // console.log('prodCard',prodCardPrice);
                 // this.ordered_prod_card.push(ordered_product)
                 this.$emit('product_order',ordered_product)
+                count++
+                this.prodStocksLeft = this.productProp[index].product_stocks;
             }
+        },
+        computed: {
+
         },
     }
 </script>
