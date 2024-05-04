@@ -8,12 +8,11 @@
                 <div class="scrollbar" v-for="(prod_card_details, index) in productDetails" :key="prod_card_details.index" >
                     <div class="card-container m-2 flex grid-cols-2 rounded-md shadow-md shadow-amber-600 duration-300 delay-200">
                         <div class="grid grid-row-2 ">
-                            Item {{ index }}
                             <!-- {{ prod_card_details.collectionId + '/'+ prod_card_details.id + '/' + prod_card_details.product_img }} -->
-                            <div class="card-image">
+                            <div class="card-image bg-slate-200 rounded-t-lg">
                                 <img :src="fileUrl +prod_card_details.collectionId + '/'+ prod_card_details.id + '/' + prod_card_details.product_img" alt="" class="h-52 w-80 rounded-t-lg img-prod-prev">
                             </div>
-                            <div class="controller bg-slate-400 grid grid-row-4 rounded-b-lg">
+                            <div class="controller bg-slate-400 grid grid-row-5 rounded-b-lg">
                                 <div class="product-heading p-3">
                                     <h1 class="font-semibold">
                                         Item name:
@@ -26,7 +25,7 @@
                                     <h3 class="font-semibold">
                                         Description:
                                     </h3>
-                                    <p class="font-medium">
+                                    <p class="font-semibold">
                                         <span class="font-thin"> {{ prod_card_details.product_desc }}</span>
                                     </p>
                                 </div>
@@ -37,11 +36,14 @@
                                     ₱ <span>{{ prod_card_details.product_price }}</span>
                                 </div>
                                 <div class="product-price p-3" >
-                                    <p class="text-orange-800 font-bold" v-if="prod_card_details.product_stocks >= 10">
+                                    <p class="text-green-800 font-bold" v-if="prod_card_details.product_stocks >= 10">
                                         On stock
                                     </p>
-                                    <p class="text-red-900 font-bold" v-else-if="prod_card_details.product_stocks < 10 && prod_card_details.product_stocks >= 0">
+                                    <p class="text-red-900 font-bold" v-else-if="prod_card_details.product_stocks < 10 && prod_card_details.product_stocks >= 1">
                                         Almost sold out
+                                    </p>
+                                    <p class="text-red-900 font-bold" v-else>
+                                        Out of stock
                                     </p>
                                     <h1>
                                         <!-- {{ prodStocksLeft == 0 ? prod_card_details.product_stocks: prodStocksLeft}} -->
@@ -51,7 +53,8 @@
                                 <div class="card-controller p-3">
                                     <div class="buttons-function">
                                         <div class="add-to-cart">
-                                            <button @click="addToCart(index,parseInt(prod_card_details.product_price))" class="bg-black text-white p-2 rounded-md hover:-translate-y-1 duration-200">Add to Cart</button>
+                                            <button v-show="prod_card_details.product_stocks > 0" @click="addToCart(index,parseInt(prod_card_details.product_price))" class="bg-black text-white p-2 rounded-md hover:-translate-y-1 duration-200">Add to Cart</button>
+                                            <button v-show="prod_card_details.product_stocks <= 0" @click="addToCart(index,parseInt(prod_card_details.product_price))" class="bg-gray-400 text-white p-2 rounded-md" disabled>Add to Cart</button>
                                         </div>
                                     </div>
                                 </div>
