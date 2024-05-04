@@ -2,7 +2,7 @@
     import ProductCard from '@/components/ProductCard.vue';
     import Cart from '@/components/Cart.vue';
     import HeaderMain from '@/components/HeaderMain.vue';
-    
+    import Transaction from './Transaction.vue';
 </script>
 <template>
     <HeaderMain :LogoutBtnDisable="true"/>
@@ -12,8 +12,11 @@
                 <div class="grid-col 1">
                     <div class="content-wrapper grid grid-cols-4 m-2">
                         <div class="product-container-wrapper col-span-3">
-                            <div class="product-card-container overflow-auto rounded-lg">
-                                <div class="flex card-container shadow-md shadow-lime-700 rounded-lg m-2" >
+                            <div class="product-card-container overflow-auto rounded-lg ms-1">
+                                <div class="heading-container sticky top-0">
+                                    <h1 class="item-heading  text-center text-slate-100 font-semibold tracking-wider bg-amber-600 rounded-t-md shadow-sm shadow-amber-600">Product List</h1>
+                                </div>
+                                <div class="flex card-container shadow-md shadow-lime-700 rounded-b-lg m-2" >
                                     <ProductCard @product_order="pass_to_cart" :display_stock="order_price" :productProp="product_list" />
                                 </div>
                             </div>
@@ -29,10 +32,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="grid2 border-2 border-black h-72">
-                                <div class="grid grid-rows-2 cart-container">
-                                    Transaction
-                                </div>
+                            <div class="grid h-72">
+                                <Transaction />
                             </div>
                         </div>
                     </div>
@@ -59,13 +60,15 @@
                 this.order_price = id
                 this.order_desc.push(id)
                 // console.log('products',id);
-            }
+            },
+            // clear_all_basket(basketObject){
+            //     this.order_desc.push(basketObject)
+            // }
         },
         data() {
             return {
                 order_price: [],
                 order_desc: [],
-                order_stock: []
             }
         },
     }

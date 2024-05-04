@@ -1,9 +1,8 @@
 <template>
     <div>
-        <div class="product-card-container p-1">
-            <div class="heading-container sticky top-0">
-                <h1 class="item-heading  text-center text-slate-100 font-semibold tracking-wider bg-amber-600 rounded-t-md shadow-sm shadow-amber-600">Items List</h1>
-            </div>
+        
+        <div class="product-card-container">
+            
             <div class="grid grid-cols-3">
                 <div class="scrollbar" v-for="(prod_card_details, index) in productDetails" :key="prod_card_details.index" >
                     <div class="card-container m-2 flex grid-cols-2 rounded-md shadow-md shadow-amber-600 duration-300 delay-200">
@@ -12,7 +11,7 @@
                             <div class="card-image bg-slate-200 rounded-t-lg">
                                 <img :src="fileUrl +prod_card_details.collectionId + '/'+ prod_card_details.id + '/' + prod_card_details.product_img" alt="" class="h-52 w-80 rounded-t-lg img-prod-prev">
                             </div>
-                            <div class="controller bg-slate-400 grid grid-row-5 rounded-b-lg">
+                            <div class="controller bg-gradient-to-t from-slate-500 to-green-200 grid grid-row-5 rounded-b-lg">
                                 <div class="product-heading p-3">
                                     <h1 class="font-semibold">
                                         Item name:

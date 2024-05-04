@@ -3,10 +3,17 @@
 </script>
 <template>
     <HeaderMain :createBtnDisable='false' :loginBtnDisable='true' :LogoutBtnDisable="false"/>
-    <div class="signup-wrapper flex sm:h-screen items-center justify-center">
+    <div class="status-wrapper top-0 pt-5">
+        
+    </div>
+    <div class="signup-wrapper grid h-screen items-center justify-center">
+        
         <div class="container-wrapper m-1 grid place-content-center p-2">
             <div class="card sm:flex sm:grid-cols-2 grid grid-col-2 rounded-lg shadow-lg shadow-neutral-500">
                 <div class="">
+                    <h1 v-show="failedSignup" class="bg-green-100 rounded-lg p-1 text-lime-700 font-serif absolute flex place-content-center text-xl">
+                        Enter your details first
+                    </h1>
                     <div class="img-container ">
                         <img :src="cow" alt="" srcset="" class="cow-img rounded-t-xl  w-full object-full sm:rounded-tr-none sm:rounded-s-lg sm:h-72 sm:w-72">
                     </div>
@@ -55,6 +62,7 @@
 
 <script>
 import CreateBtn from '@/icons/CreateBtn.vue'
+import router from '@/router/router';
 
     import PocketBase from 'pocketbase'
     const pb = new PocketBase('http://127.0.0.1:8090/')
@@ -71,7 +79,8 @@ import CreateBtn from '@/icons/CreateBtn.vue'
                 addresS: '',
                 phone_nuM: '',
                 isValid: false,
-                isAccountCreated: false
+                isAccountCreated: false,
+                failedSignup: false
             }
         },
         methods: {
@@ -86,16 +95,16 @@ import CreateBtn from '@/icons/CreateBtn.vue'
                 }
 
                 try {
-                        if(await pb.collection('users').create(userPayload)) {
+                        await pb.collection('users').create(userPayload)
                         this.isAccountCreated = !this.isAccountCreated
                         this.usernamE = '',
                         this.emaiL = '',
                         this.passworD = '',
                         this.addresS = '',
                         this.phone_nuM = ''
-                    }
+                        this.$router.push('/login')
                 } catch (error) {
-                    confirm('Email already in use', error)
+                    this.failedSignup = !this.failedSignup
                 }
                 
             }

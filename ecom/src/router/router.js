@@ -10,6 +10,7 @@ import SignupForm from '@/views/SignupForm.vue';
 import LoginForm from '@/views/LoginForm.vue';
 import HomewithCta from '@/views/HomewithCta.vue'
 import Products from '@/views/Products.vue';
+import ErrorPage from '@/views/ErrorPage.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,6 +38,11 @@ const router = createRouter({
             name: 'products',
             component: Products
         },
+        {
+            path: '/:pathMatch(.*)*',
+            name: 'errorPage',
+            component: ErrorPage
+        }
     ]
 })
 

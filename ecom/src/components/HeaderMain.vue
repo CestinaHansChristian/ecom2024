@@ -1,6 +1,4 @@
 <script setup>
-    // import LoginBtn from '@/icons/LoginBtnSystem.vue';
-    // import SignUpbtn from '@/icons/SignUpbtnSystem.vue';
     import DailyFarmlogo from '@/icons/DailyFarmlogo.vue';
 </script>
 <template>
@@ -23,9 +21,9 @@
                             </div>
                         </div>
                         <div class="logout-btn">
-                            <router-link :to="{name: 'home'}">
+                            <!-- <router-link :to="{name: 'home'}"> -->
                                 <button @click="logoutBtn" v-show="LogoutBtnDisable" class="btn-header bg-red-500 hover:translate-y-1 duration-200">Logout</button>
-                            </router-link>
+                            <!-- </router-link> -->
                         </div>
                     </div>
                 </div>
@@ -53,10 +51,9 @@ const pb = new PocketBase('http://127.0.0.1:8090');
         },
         methods: {
             logoutBtn() {
-                if(pb.authStore.clear())
+                pb.authStore.clear()
+                this.$router.push('/')
                 console.log('logged out');
-                else
-                console.log("falied");
             }
         },
     }

@@ -3,10 +3,16 @@
 </script>
 <template>
     <HeaderMain :loginBtnDisable="false" :createBtnDisable='true' :LogoutBtnDisable="false" />
+    
     <div class="signup-wrapper flex sm:h-screen items-center justify-center">
         <div class="container-wrapper m-1 grid place-content-center p-2">
             <div class="card sm:flex sm:grid-cols-2 grid grid-rows-2 rounded-lg shadow-lg shadow-neutral-500">
-                <div class="">
+                <div class="relative">
+                    <div class="status-wrapper relative top-0 " v-show="this.failedLogin">
+                        <h1 class="text-orange-700 bg-red-100 rounded-lg p-1 absolute font-serif text-xl">
+                            Enter your details first
+                        </h1>
+                    </div>
                     <div class="img-container ">
                         <img :src="cow" alt="" srcset="" class="cow-img rounded-t-xl shrink h-72 sm:max-h-max w-full object-cover sm:rounded-tr-none sm:rounded-s-lg sm:h-72 sm:w-72">
                     </div>
@@ -30,9 +36,9 @@
                                 </div>
                                 <div class="form-container">
                                     <div class="flex place-content-center">
-                                        <router-link :to="{name: 'products'}" class="w-full">
+                                        <!-- <router-link :to="{name: 'products'}" class="w-full"> -->
                                             <button class="bg-neutral-300 btn-font w-full  rounded-lg font-semibold hover:bg-slate-400 hover:-translate-y-px delay-150 duration-200">Login</button>
-                                        </router-link>
+                                        <!-- </router-link> -->
                                     </div>
                                 </div>
                             </div>
@@ -54,14 +60,20 @@
                 usernamE: '',
                 passworD: '',
                 emaiL: '',
-                isValid: false
+                isValid: false,
+                failedLogin: false
             }
         },
         methods: {
             async loginUserCred() {
-                await pb.collection('users').authWithPassword(this.usernamE,this.passworD)
-                console.log(pb.authStore.token);
-                this.$router.push('/products')
+                try {
+                    await pb.collection('users').authWithPassword(this.usernamE,this.passworD)
+                    this.$router.push('/products')
+                    console.log('login',pb.authStore.model.id)
+                } catch (error) {
+                    this.failedLogin = !this.failedLogin
+                    // this.$router.push('/')
+                }
             }
         },
         computed: {

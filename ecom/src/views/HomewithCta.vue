@@ -7,10 +7,10 @@
     <div class="m-5">
         <div class="rounded-lg grid md:grid-cols-2 ">
             <div class="grid md:grid-rows-1 m-2">
-                <div class=" rounded-lg border-2 ">
-                    <div class="cta-bg-img object-cover shadow-lg shadow-gray-700 h-svh grid w-full md:h-full justify-center md:w-full">
+                <div class=" rounded-lg ">
+                    <div class="cta-bg-img object-cover shadow-md shadow-gray-700 h-svh grid w-full md:h-full justify-center md:w-full">
                         <div class="flex place-content-center relative grid-cols-2 shadow-xl">
-                            <router-link :to="{name: 'products'}" class="flex place-content-center">
+                            <router-link :to="{name: 'login'}" class="flex place-content-center">
                                 <button class="ctaBtn bg-emerald-500 absolute border-2 shadow-2xl shadow-neutral-800 border-emerald-900 top-1/2 p-5 w-60 rounded-2xl font-semibold text-4xl transition ease-linear delay-150 duration-500 hover:bg-green-500 hover:-translate-y-2 hover:text-white">Shop now!</button>    
                             </router-link>    
                         </div>
