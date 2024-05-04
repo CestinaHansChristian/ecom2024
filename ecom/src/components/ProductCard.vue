@@ -1,9 +1,12 @@
 <template>
     <div>
         <div class="product-card-container p-1">
+            <div class="heading-container sticky top-0">
+                <h1 class="item-heading  text-center text-slate-100 font-semibold tracking-wider bg-amber-600 rounded-t-md shadow-sm shadow-amber-600">Items List</h1>
+            </div>
             <div class="grid grid-cols-3">
                 <div class="scrollbar" v-for="(prod_card_details, index) in productDetails" :key="prod_card_details.index" >
-                    <div class="card-container m-2 flex grid-cols-2 rounded-md shadow-md shadow-amber-600">
+                    <div class="card-container m-2 flex grid-cols-2 rounded-md shadow-md shadow-amber-600 duration-300 delay-200">
                         <div class="grid grid-row-2 ">
                             Item {{ index }}
                             <!-- {{ prod_card_details.collectionId + '/'+ prod_card_details.id + '/' + prod_card_details.product_img }} -->
@@ -41,9 +44,9 @@
                                         Almost sold out
                                     </p>
                                     <h1>
-                                        <!-- {{ prodStocksLeft }} -->
+                                        <!-- {{ prodStocksLeft == 0 ? prod_card_details.product_stocks: prodStocksLeft}} -->
+                                        {{ prod_card_details.product_stocks }}
                                     </h1>
-                                    <span>{{ productDetails[index].product_stock ? 'null' : 'no'}}</span>
                                 </div>
                                 <div class="card-controller p-3">
                                     <div class="buttons-function">
@@ -66,7 +69,8 @@ let grandTotal = 0
 let count = 1
     export default {
         props: {
-            productProp: Array
+            productProp: Array,
+            display_stock: Object
         },
         data() {
             return {
@@ -88,17 +92,18 @@ let count = 1
                 const ordered_product = {
                     'prod_img': this.fileUrl + this.productGet[index].collectionId + '/'+ this.productGet[index].id + '/' + this.productGet[index].product_img,
                     'prod_name': this.productGet[index].product_name,
-                    'prod_price': this.productGet[index].prod,
+                    // 'prod_price': this.productGet[index].prod,
                     'prod_grand_total': grandTotal,
-                    'prod_counter': count
+                    'prod_stock': this.productGet[index].product_stocks 
                 }
 
                 // console.log('prodCard',prodCardPrice);
                 // this.ordered_prod_card.push(ordered_product)
                 this.$emit('product_order',ordered_product)
-                count++
                 this.prodStocksLeft = this.productProp[index].product_stocks;
-            }
+                this.productProp[index].product_stocks = this.prodStocksLeft
+                console.log('prod card',this.productDetails);
+            },
         },
         computed: {
 
@@ -109,5 +114,9 @@ let count = 1
 <style>
     .img-prod-prev {
         -webkit-user-drag: none
+    }
+
+    .item-heading {
+        font-size: 35px
     }
 </style>

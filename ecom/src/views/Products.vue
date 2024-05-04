@@ -14,7 +14,7 @@
                         <div class="product-container-wrapper col-span-3">
                             <div class="product-card-container overflow-auto rounded-lg">
                                 <div class="flex card-container shadow-md shadow-lime-700 rounded-lg m-2" >
-                                    <ProductCard @product_order="pass_to_cart" :productProp="product_list" />
+                                    <ProductCard @product_order="pass_to_cart" :display_stock="order_price" :productProp="product_list" />
                                 </div>
                             </div>
                         </div>
@@ -58,13 +58,14 @@
             pass_to_cart(id) {
                 this.order_price = id
                 this.order_desc.push(id)
-                console.log('products',id);
+                // console.log('products',id);
             }
         },
         data() {
             return {
                 order_price: [],
-                order_desc: []
+                order_desc: [],
+                order_stock: []
             }
         },
     }
@@ -90,10 +91,10 @@
     
     ::-webkit-scrollbar-thumb {
         border-radius: 10px;
-        background-color: rgb(175, 92, 92);
+        background-color: rgb(168, 152, 152);
     }
     
     ::-webkit-scrollbar-thumb:hover {
-        background: #dd7c7c; 
+        background: #ec9696; 
       }
 </style>
