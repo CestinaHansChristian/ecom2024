@@ -8,9 +8,9 @@
         <div class="container-wrapper m-1 grid place-content-center p-2">
             <div class="card sm:flex sm:grid-cols-2 grid grid-rows-2 rounded-lg shadow-lg shadow-neutral-500">
                 <div class="relative">
-                    <div class="status-wrapper relative top-0 " v-show="this.failedLogin">
+                    <div class="status-wrapper relative top-0 " v-show="failedLogin">
                         <h1 class="text-orange-700 bg-red-100 rounded-lg p-1 absolute font-serif text-xl">
-                            Enter your details first
+                            Wrong Credentials
                         </h1>
                     </div>
                     <div class="img-container ">
@@ -72,7 +72,6 @@
                     console.log('login',pb.authStore.model.id)
                 } catch (error) {
                     this.failedLogin = !this.failedLogin
-                    // this.$router.push('/')
                 }
             }
         },

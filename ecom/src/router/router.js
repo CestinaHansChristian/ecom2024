@@ -24,9 +24,6 @@ const router = createRouter({
             path: '/create',
             name: 'create',
             component: SignupForm,
-            children: [
-                
-            ]
         },
         {
             path: '/login',
@@ -36,7 +33,16 @@ const router = createRouter({
         {
             path: '/products',
             name: 'products',
-            component: Products
+            component: Products,
+            beforeEnter(to) {
+                if (to.name === 'products' && !pb.authStore.isValid ) {
+                    console.log('failed to access using url no token');
+                    return false
+                } else {
+                    return true
+                }
+            }
+            
         },
         {
             path: '/:pathMatch(.*)*',
